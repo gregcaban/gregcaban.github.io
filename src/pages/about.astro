@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="About">
+  <div class="page">
+    <h1>About Me</h1>
+    <p>
+      Welcome to my blog! My name is Greg Caban, I'm a software engineer with almost 20 years of industry experience and currently employed as Senior Staff Software Engineer at ServiceNow.
+      I've been working in this Staff+ / Principal role since about 2017 and been programming since I was 7 years old and my uncle showed me how to build a calculator in BASIC on my Commodore 64.
+      I'm writing primarily about compilers, programming language design and theory, language runtimes, dev tooling and other systems engineering topics, primarily driven by the desire to share some of my projects,
+      for the sake of capturing knowledge for myself and perhaps others. Plus my general thoughts and lessons learned about software engineering as a craft and a profession.
+    </p>
+    <p>
+      I've been fascinated by programming languages and compilers for a very long time and it accelerated since I've discovered Lisp over a decade ago.
+      Lisp with its mantra of "don't try to fit your problem into a language you have, build yourself a language that fits the problem" is definitely
+      a slippery slope into both metaprogramming and PL extensibility tools like macro systems but also into building proper interpreters and compilers.
+      Many know that Lisp being such a small language, it's often hard to resist building one and a simple SICP-inspired Lisp interpreter is one of the more popular projects on GitHub.
+      I've certainly built several myself!
+    </p>
+    <p>
+      My team at ServiceNow is responsible for a proprietary JavaScript engine, which sits at the core of their SaaS platform and is used to run scripts needed to build and extend the platform.
+      That means I get to work on compilers and other programming language related stuff in my day job, which, if you ask me, is very cool. Before this job I worked on a few other projects
+      where the main technology product we've been shipping was a proprietary programming language or query language, often in the Big Data and analytics space. I've worked for startups,
+      large international corporations like investment banks or BigTech companies like Microsoft. Feel free to check out my <a href="https://www.linkedin.com/in/gregcaban/" target="_blank">LinkedIn profile</a> if you're interested.
+    </p>
+    <p>
+      I live in London, UK which I've called home for almost 15 years, but I'm originally from Poland.
+    </p>
+  </div>
+</BaseLayout>
+
+<style>
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+</style>

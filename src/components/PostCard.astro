@@ -1,0 +1,48 @@
+---
+import FormattedDate from './FormattedDate.astro';
+
+export interface Props {
+  post: {
+    id: string;
+    data: {
+      title: string;
+      description?: string;
+      pubDate: Date;
+      tags?: string[];
+    };
+  };
+}
+
+const { post } = Astro.props;
+const postUrl = `/blog/${post.id}/`;
+---
+
+<article class="post on-list">
+  <h2 class="post-title">
+    <a href={postUrl}>
+      {post.data.title}
+    </a>
+  </h2>
+  <div class="post-meta">
+    <time class="post-date">
+      <FormattedDate date={post.data.pubDate} />
+    </time>
+  </div>
+  {post.data.tags && post.data.tags.length > 0 && (
+    <span class="post-tags">
+      {post.data.tags.map((tag) => (
+        <a href={`/tags/${tag}/`}>{tag}</a>
+      ))}
+    </span>
+  )}
+  {post.data.description && (
+    <div class="post-content">
+      <p>{post.data.description}</p>
+    </div>
+  )}
+  <div>
+    <a href={postUrl} class="read-more button inline">
+      [Read more]
+    </a>
+  </div>
+</article>
