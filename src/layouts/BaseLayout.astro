@@ -1,0 +1,161 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+}
+
+const { title, description = 'Greg Caban\'s Dev blog', image } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    {image && <meta property="og:image" content={new URL(image, Astro.url)} />}
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {image && <meta name="twitter:image" content={new URL(image, Astro.url)} />}
+
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="/rss.xml" />
+  </head>
+  <body>
+    <div class="container center">
+      <header class="header">
+        <div class="header__inner">
+          <div class="header__logo">
+            <a href="/">
+              <div class="logo">
+                Greg Caban's Blog
+              </div>
+            </a>
+          </div>
+          <ul class="menu menu--mobile">
+            <li class="menu__trigger">Menu &#9662;</li>
+            <li>
+              <ul class="menu__dropdown">
+                <li><a href="/blog/">Posts</a></li>
+                <li><a href="/about/">About</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+        <nav class="navigation-menu">
+          <ul class="navigation-menu__inner menu--desktop">
+            <li><a href="/blog/">Posts</a></li>
+            <li><a href="/about/">About</a></li>
+            <li>
+              <div class="social-links">
+                <a href="https://github.com/gregcaban" target="_blank" title="GitHub">GitHub</a>
+                <a href="https://www.linkedin.com/in/gregcaban/" target="_blank" title="LinkedIn">LinkedIn</a>
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </header>
+
+      <main class="content">
+        <slot />
+      </main>
+
+      <footer class="footer">
+        <div class="footer__inner">
+          <div class="copyright">
+            <span>&copy; {new Date().getFullYear()} Greg Caban</span>
+            <span class="separator">::</span>
+            <span><a href="https://github.com/gregcaban" target="_blank">GitHub</a></span>
+            <span class="separator">::</span>
+            <span><a href="https://www.linkedin.com/in/gregcaban/" target="_blank">LinkedIn</a></span>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      // Menu functionality
+      (() => {
+        const container = document.querySelector(".container");
+        const menus = document.querySelectorAll(".menu");
+
+        document.body.addEventListener("click", () => {
+          menus.forEach(menu => {
+            if (menu.classList.contains("open")) {
+              menu.classList.remove("open");
+            }
+          });
+        });
+
+        window.addEventListener("resize", () => {
+          menus.forEach(menu => {
+            menu.classList.remove("open");
+          });
+        });
+
+        menus.forEach(menu => {
+          const trigger = menu.querySelector(".menu__trigger");
+          const dropdown = menu.querySelector<HTMLElement>(".menu__dropdown");
+
+          if (trigger && dropdown) {
+            trigger.addEventListener("click", event => {
+              event.stopPropagation();
+
+              if (menu.classList.contains("open")) {
+                menu.classList.remove("open");
+              } else {
+                menus.forEach(m => m.classList.remove("open"));
+                menu.classList.add("open");
+              }
+
+              if (container && dropdown.getBoundingClientRect().right > container.getBoundingClientRect().right) {
+                dropdown.style.left = "auto";
+                dropdown.style.right = "0";
+              }
+            });
+
+            dropdown.addEventListener("click", e => e.stopPropagation());
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  @import "../styles/terminal.css";
+  @import "../styles/fonts.css";
+  @import "../styles/main.css";
+  @import "../styles/header.css";
+  @import "../styles/menu.css";
+  @import "../styles/footer.css";
+  @import "../styles/buttons.css";
+  @import "../styles/post.css";
+  @import "../styles/pagination.css";
+  @import "../styles/code.css";
+  @import "../styles/syntax.css";
+  @import "../styles/gist.css";
+  @import "../styles/terms.css";
+
+  .social-links {
+    display: inline-flex;
+    gap: 15px;
+    margin-left: 10px;
+  }
+</style>
