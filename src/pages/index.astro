@@ -8,11 +8,6 @@ const posts = (await getCollection('blog'))
 ---
 
 <BaseLayout title="Greg Caban">
-  <div class="index-content framed">
-    <p>
-      Welcome to my Dev blog, my name is Greg Caban and I post mainly about compilers, programming languages, runtimes, dev tools or infrastructure and anything else I'm currently working on.
-    </p>
-  </div>
 
   <div class="posts">
     {posts.map((post) => <PostCard post={post} />)}
